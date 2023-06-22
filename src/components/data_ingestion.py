@@ -3,16 +3,19 @@ import pandas as pd
 import numpy as np
 from src.logger import logging
 from src.exception import CustomException
+
+from src.constant.constant import *
+from src.config.configuration import *
+
 from dataclasses import dataclass
 from sklearn.model_selection import train_test_split
 
 @dataclass
-class DataIngestionConfig:
-    train_data_path = os.path.join("artifacts/data_ingestion", "train.csv")
-    test_data_path = os.path.join("artifacts/data_ingestion", "test.csv")
-    raw_data_path = os.path.join("artifacts/data_ingestion", "airline_dataset.csv")
+class DataIngestionConfig():
+    raw_data_path:str = RAW_FILE_PATH
+    train_data_path:str = TRAIN_FILE_PATH
+    test_data_path:str = TEST_FILE_PATH
 
-# notbook\data\income.csv
 
 class DataIngestion:
     def __init__(self):
@@ -21,19 +24,31 @@ class DataIngestion:
     
     def inititate_data_ingestion(self):
         logging.info("Data Ingestion started")
+        
+
+
         try:
-            logging.info("Reading Data using Pandas library from local system")
-            data = pd.read_csv(os.path.join("notebook/data", "airline_dataset.csv"))
+            logging.info(f" Reading data from dataset path : {DATASET_PATH}")
+            df = pd.read_csv(DATASET_PATH)
             logging.info("Data Reading completed")
 
             os.makedirs(os.path.dirname(self.ingestion_config.raw_data_path), exist_ok=True)
-            data.to_csv(self.ingestion_config.raw_data_path, index=False)
+            df.to_csv(self.ingestion_config.raw_data_path, index=False)
             logging.info("Data splitted into train and test")
 
-            train_set, test_set = train_test_split(data, test_size = .30, random_state=50)
+            train_set, test_set = train_test_split(df, test_size = .30, random_state=50)
 
+
+            logging.info(f"Creating train data at path : {TRAIN_FILE_PATH}")
+            os.makedirs(os.path.dirname(self.ingestion_config.train_data_path),exist_ok =True)
             train_set.to_csv(self.ingestion_config.train_data_path, index = False, header = True)
+            logging.info(f"train data created at path : {TRAIN_FILE_PATH}")
+
+
+            logging.info(f"Creating test data at path : {TRAIN_FILE_PATH}")
+            os.makedirs(os.path.dirname(self.ingestion_config.test_data_path),exist_ok =True)
             test_set.to_csv(self.ingestion_config.test_data_path, index = False, header = True)
+            logging.info(f"test data created at path : {TRAIN_FILE_PATH}")
 
             logging.info("Data Ingestion completed")
 
