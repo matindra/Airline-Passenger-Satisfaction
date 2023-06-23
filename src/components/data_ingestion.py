@@ -4,11 +4,12 @@ import numpy as np
 from src.logger import logging
 from src.exception import CustomException
 
-from src.constant.constant import *
+from src.constant.constants import *
 from src.config.configuration import *
 
 from dataclasses import dataclass
 from sklearn.model_selection import train_test_split
+from src.components.data_transformation import DataTransformation
 
 @dataclass
 class DataIngestionConfig():
@@ -28,15 +29,17 @@ class DataIngestion:
 
 
         try:
-            logging.info(f" Reading data from dataset path : {DATASET_PATH}")
+            logging.info(f"Reading raw data from dataset path : {DATASET_PATH}")
             df = pd.read_csv(DATASET_PATH)
-            logging.info("Data Reading completed")
+            logging.info("Raw Data Reading completed")
 
             os.makedirs(os.path.dirname(self.ingestion_config.raw_data_path), exist_ok=True)
             df.to_csv(self.ingestion_config.raw_data_path, index=False)
-            logging.info("Data splitted into train and test")
 
+
+            logging.info("Initiating train test split ")
             train_set, test_set = train_test_split(df, test_size = .30, random_state=50)
+            logging.info("Data splitted into train and test")
 
 
             logging.info(f"Creating train data at path : {TRAIN_FILE_PATH}")
@@ -65,6 +68,10 @@ class DataIngestion:
 if __name__ =="__main__":
     obj = DataIngestion()
     train_data_path , test_data_path = obj.inititate_data_ingestion()
+
+    data_transformation = DataTransformation()
+    
+    train_arr, test_arr, _ = data_transformation.initiate_data_transformation(train_data_path , test_data_path)
 
 
 # src/components/data_ingestion.py
