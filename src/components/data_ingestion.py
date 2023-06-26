@@ -10,6 +10,7 @@ from src.config.configuration import *
 from dataclasses import dataclass
 from sklearn.model_selection import train_test_split
 from src.components.data_transformation import DataTransformation
+from src.components.model_trainer import ModelTrainer
 
 @dataclass
 class DataIngestionConfig():
@@ -24,7 +25,7 @@ class DataIngestion:
     
     
     def inititate_data_ingestion(self):
-        logging.info("Data Ingestion started")
+        logging.info(f"{'>>'*10} Data Ingestion Started {'<<'*10}")
         
 
 
@@ -53,7 +54,7 @@ class DataIngestion:
             test_set.to_csv(self.ingestion_config.test_data_path, index = False, header = True)
             logging.info(f"test data created at path : {TRAIN_FILE_PATH}")
 
-            logging.info("Data Ingestion completed")
+            logging.info(f"{'>>'*10} Data Ingestion Completed{'<<'*10}")
 
             return (
                 self.ingestion_config.train_data_path,
@@ -66,12 +67,15 @@ class DataIngestion:
 
 
 if __name__ =="__main__":
+
     obj = DataIngestion()
     train_data_path , test_data_path = obj.inititate_data_ingestion()
 
     data_transformation = DataTransformation()
-    
     train_arr, test_arr, _ = data_transformation.initiate_data_transformation(train_data_path , test_data_path)
+
+    modeltrainer = ModelTrainer()
+    print(modeltrainer.initate_model_training(train_arr, test_arr))
 
 
 # src/components/data_ingestion.py
