@@ -78,4 +78,4 @@ if __name__ =="__main__":
     print(modeltrainer.initate_model_training(train_arr, test_arr))
 
 
-# src/components/data_ingestion.py
+#python src/components/data_ingestion.py

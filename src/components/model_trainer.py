@@ -67,6 +67,7 @@ class ModelTrainer:
 
     def initate_model_training(self,train_array,test_array):
         try:
+            logging.info(f"{'>>'*10} Model Training started {'<<'*10}")
             logging.info('Splitting Dependent and Independent variables from train and test data')
             X_train, y_train, X_test, y_test = (
                 train_array[:,:-1],
@@ -78,10 +79,10 @@ class ModelTrainer:
             models={
 
             'Logistic':LogisticRegression(),          
-            'DecisionTree':DecisionTreeClassifier(),
-            'Gradient Boosting':GradientBoostingClassifier(),
-            'Random Forest':RandomForestClassifier(),
-            'XGB Classifier':XGBClassifier(),
+            # 'DecisionTree':DecisionTreeClassifier(),
+            # 'Gradient Boosting':GradientBoostingClassifier(),
+            # 'Random Forest':RandomForestClassifier(),
+            # 'XGB Classifier':XGBClassifier(),
             'KNN neighbour':KNeighborsClassifier()
             }
 
@@ -95,44 +96,44 @@ class ModelTrainer:
                     'solver': ['liblinear', 'saga']
                 },
 
-                "DecisionTree":{
-                    "class_weight":["balanced"],
-                    "criterion":['gini',"entropy","log_loss"],
-                    "splitter":['best','random'],
-                    "max_depth":[3,4,5,6],
-                    "min_samples_split":[2,3,4,5],
-                    "min_samples_leaf":[1,2,3],
-                    "max_features":["sqrt","log2"]
-                },
+                # "DecisionTree":{
+                #     "class_weight":["balanced"],
+                #     "criterion":['gini',"entropy","log_loss"],
+                #     "splitter":['best','random'],
+                #     "max_depth":[3,4,5,6],
+                #     "min_samples_split":[2,3,4,5],
+                #     "min_samples_leaf":[1,2,3],
+                #     "max_features":["auto","sqrt","log2"]
+                # },
 
 
-                "Gradient Boosting":{
-                    "learning_rate":[ 0.1, 0.05],
-                    "n_estimators":[50,100],
-                    "max_depth":[10, 8 ]
+                # "Gradient Boosting":{
+                #     "learning_rate":[ 0.1, 0.05],
+                #     "n_estimators":[50,100],
+                #     "max_depth":[10, 8 ]
 
-                },
+                # },
 
 
 
-                "Random Forest":{
+                # "Random Forest":{
                     
-                    'n_estimators': [20,  30,50,100],
-                    'max_depth': [10, 8, 5,None],
-                    'min_samples_split': [2, 5, 10],
-                    'criterion':["gini"]
+                #     'n_estimators': [20,  30,50,100],
+                #     'max_depth': [10, 8, 5,None],
+                #     'min_samples_split': [2, 5, 10],
+                #     'criterion':["gini"]
 
 
-                },
+                # },
 
-                "XGB Classifier":{
-                    'max_depth': [ 5, 7],
-                    'learning_rate': [0.1, 0.01],
-                    'n_estimators': [100, 200],
+                # "XGB Classifier":{
+                #     'max_depth': [ 5, 7],
+                #     'learning_rate': [0.1, 0.01],
+                #     'n_estimators': [100, 200],
             
-                    'reg_alpha': [ 0.1, 0.5],
-                    'reg_lambda': [ 1, 10]
-                },
+                #     'reg_alpha': [ 0.1, 0.5],
+                #     'reg_lambda': [ 1, 10]
+                # },
 
 
                 "KNN neighbour":{
@@ -140,15 +141,13 @@ class ModelTrainer:
                         'weights': ['uniform', 'distance'],
                         
                     }
-
-
                 
             }
             
            
-
             
-            model_report:dict=self.evaluate_model(X_train,y_train,X_test,y_test,models,params = params)
+            model_report:dict=self.evaluate_model(X_train=X_train, X_test=X_test, y_train=y_train, y_test=y_test,
+                                            models=models,params=params)
           
             
 
@@ -167,10 +166,11 @@ class ModelTrainer:
 
             logging.info(f"best model score: {best_model_score}")
 
-            best_model_name = list(model_report.keys())[
+            best_model_name = list(models.keys())[
                 list(model_report.values()).index(best_model_score)
             ]
-            #logging.info(f"{plot_confusion_matrix(best_model_name, X_test, self.y_test_pred, cmap='Blues', values_format='d')}")
+
+            # logging.info(f"{plot_confusion_matrix(best_model_name, X_test, self.y_test_pred, cmap='Blues', values_format='d')}")
 
             best_model = models[best_model_name]
 
@@ -181,7 +181,10 @@ class ModelTrainer:
             save_object(
                  file_path=self.model_trainer_config.trained_model_file_path,
                  obj=best_model
+
             )
+
+            logging.info(f"{'>>'*10} Model Training Completed {'<<'*10}")
           
 
         except Exception as e:

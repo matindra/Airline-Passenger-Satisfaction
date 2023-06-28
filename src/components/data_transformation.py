@@ -51,8 +51,6 @@ class DataTransformation():
         try:
             logging.info("Initiating data transformation")
             
-            
-            
             # Separating Numerical features
             numerical_columns = ['Age', 'Flight Distance', 'Inflight wifi service','Departure/Arrival time convenient',
                                  'Ease of Online booking','Gate location', 'Food and drink', 'Online boarding',
@@ -65,22 +63,45 @@ class DataTransformation():
             categorical_columns = ['Gender', 'Customer Type', 'Type of Travel', 'Class', 'satisfaction']
 
             
-            
             numerical_pipeline=Pipeline(steps=[
                 ('impute',SimpleImputer()),
                 ('scaler',StandardScaler()),
                 ('transformer', PowerTransformer(method='yeo-johnson', standardize=False))
             ])
 
-            categorical_pipeline=Pipeline(steps=[
-                ('impute',SimpleImputer(strategy='most_frequent')),
-                ('onehot',OneHotEncoder(handle_unknown='ignore')),
-                ('scaler',StandardScaler(with_mean=False))
-                ])
+            # categorical_pipeline=Pipeline(steps=[
+            #     ('impute',SimpleImputer(strategy='most_frequent')),
+            #     ('onehot',OneHotEncoder(handle_unknown='ignore')),
+            #     ('scaler',StandardScaler(with_mean=False))
+            #     ])
+
+            
+            onehot_columns = ['Gender', 'Customer Type', 'Type of Travel']
+            ordinal_columns = ['Class']
+            label_encoder_column = ['satisfaction']
+
+            onehot_pipeline= Pipeline(steps=[
+                ('imputer', SimpleImputer(strategy='most_frequent')),
+                ('oridnal_encoder', OrdinalEncoder()),
+                ('scaler', StandardScaler(with_mean=False))
+            ])
+
+
+            ordinal_pipeline = Pipeline(steps=[
+                ('imputer', SimpleImputer(strategy='most_frequent')),
+                ('one_hot_encoder', OneHotEncoder()),
+                ('scaler', StandardScaler(with_mean=False))
+            ]
+            )
+
+
 
             preprocessor =ColumnTransformer([
                 ('numerical_pipeline',numerical_pipeline,numerical_columns),
-                ('category_pipeline',categorical_pipeline,categorical_columns)
+                # ('category_pipeline',categorical_pipeline,categorical_columns)
+                ('onehot_pipeline', onehot_pipeline, onehot_columns),
+                ('ordinal_pipeline', ordinal_pipeline, ordinal_columns),
+
             ])
 
             return preprocessor
@@ -161,17 +182,19 @@ class DataTransformation():
             preprocessing_obj = self.get_data_transformation_object()
 
 
-        #    target_column_name = 'satisfaction'
+            target_column_name = 'satisfaction'
 
 
             logging.info("Splitting train data into dependent X_Train and independent features y_train")
-            X_train = train_df.drop(['satisfaction'],axis=1)
-            y_train = train_df['satisfaction']
+            # X_train = train_df.drop(['satisfaction'],axis=1)
+            # y_train = train_df['satisfaction']
+            X_train = train_df.drop(target_column_name,axis=1)
+            y_train = train_df[target_column_name]
 
 
             logging.info("Splitting test data into dependent X_test and independent features y_test")
-            X_test = test_df.drop(['satisfaction'],axis=1)
-            y_test = test_df['satisfaction']
+            X_test = test_df.drop(target_column_name,axis=1)
+            y_test = test_df[target_column_name]
 
 
             logging.info(f"shape of X_Train {X_train.shape} and y_train {y_train.shape}")
@@ -179,8 +202,8 @@ class DataTransformation():
 
             # Transforming using preprocessor obj
             
-            # X_train = preprocessing_obj.fit_transform(X_train)
-            # X_test = preprocessing_obj.transform(X_test)
+            X_train = preprocessing_obj.fit_transform(X_train)
+            X_test = preprocessing_obj.transform(X_test)
 
 
             logging.info("Applying preprocessing object on training and testing datasets.")            
