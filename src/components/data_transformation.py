@@ -50,17 +50,20 @@ class DataTransformation():
     def get_data_transformation_object(self):
         try:
             logging.info("Initiating data transformation")
+
+
             
             # Separating Numerical features
-            numerical_columns = ['Age', 'Flight Distance', 'Inflight wifi service','Departure/Arrival time convenient',
-                                 'Ease of Online booking','Gate location', 'Food and drink', 'Online boarding',
-                                 'Seat comfort', 'Inflight entertainment', 'On-board service', 'Leg room service', 
-                                 'Baggage handling', 'Checkin service', 'Inflight service', 'Cleanliness',
-                                 'Departure Delay in Minutes', 'Arrival Delay in Minutes']
-            
+            numerical_columns = ['Age', 'Flight_Distance', 'Inflight_wifi_service',
+       'Departure_Arrival_time_convenient', 'Ease_of_Online_booking',
+       'Gate_location', 'Food_and_drink', 'Online_boarding', 'Seat_comfort',
+       'Inflight_entertainment', 'On_board_service', 'Leg_room_service',
+       'Baggage_handling', 'Checkin_service', 'Inflight_service',
+       'Cleanliness', 'Departure_Delay_in_Minutes',
+       'Arrival_Delay_in_Minutes']
 
             # Separating categorical features
-            categorical_columns = ['Gender', 'Customer Type', 'Type of Travel', 'Class', 'satisfaction']
+            categorical_columns = ['Gender', 'Customer_Type', 'Type_of_Travel', 'Class', 'satisfaction']
 
             
             numerical_pipeline=Pipeline(steps=[
@@ -76,7 +79,7 @@ class DataTransformation():
             #     ])
 
             
-            onehot_columns = ['Gender', 'Customer Type', 'Type of Travel']
+            onehot_columns = ['Gender', 'Customer_Type', 'Type_of_Travel']
             ordinal_columns = ['Class']
             label_encoder_column = ['satisfaction']
 
@@ -164,9 +167,15 @@ class DataTransformation():
 
             # numerical_features = DATASET_KEY.select_dtypes(exclude="object").columns     # --->> This line is giving error
 
-            numerical_features = ['Age','Flight Distance','Inflight wifi service','Departure/Arrival time convenient','Ease of Online booking',
-                    'Food and drink','Online boarding','Seat comfort','Inflight entertainment','On-board service','Leg room service','Baggage handling',
-                    'Checkin service','Inflight service','Cleanliness']
+            numerical_features = ['Age', 'Flight_Distance', 'Inflight_wifi_service',
+       'Departure_Arrival_time_convenient', 'Ease_of_Online_booking',
+       'Gate_location', 'Food_and_drink', 'Online_boarding', 'Seat_comfort',
+       'Inflight_entertainment', 'On-board_service', 'Leg_room_service',
+       'Baggage_handling', 'Checkin_service', 'Inflight_service',
+       'Cleanliness', 'Departure_Delay_in_Minutes',
+       'Arrival_Delay_in_Minutes']
+            
+
 
             for col in numerical_features:
                 self.remove_outliers_IQR(col = col, df = train_df)
@@ -188,7 +197,7 @@ class DataTransformation():
             logging.info("Splitting train data into dependent X_Train and independent features y_train")
             # X_train = train_df.drop(['satisfaction'],axis=1)
             # y_train = train_df['satisfaction']
-            X_train = train_df.drop(target_column_name,axis=1)
+            X_train = train_df.drop(target_column_name, axis=1)
             y_train = train_df[target_column_name]
 
 

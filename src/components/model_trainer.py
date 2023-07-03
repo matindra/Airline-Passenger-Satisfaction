@@ -7,7 +7,6 @@ from src.exception import CustomException
 from src.logger import logging
 from src.config.configuration import MODEL_FILE_PATH
 from src.utils import save_object
-#from employee.utils.utils import evaluate_model
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
