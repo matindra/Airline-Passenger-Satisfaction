@@ -35,7 +35,7 @@ class PredictionPipeline:
 
 class CustomClass:
     def __init__(self, 
-                  age:int,
+                  Age:int,
                   Flight_Distance:int, 
                   Inflight_wifi_service:int, 
                   Departure_Arrival_time_convenient:int, 
@@ -57,7 +57,7 @@ class CustomClass:
                   Type_of_Travel:str,
                   Class:str,
                   Arrival_Delay_in_Minutes:str):
-        self.age = age
+        self.Age = Age
         self.Flight_Distance = Flight_Distance
         self.Inflight_wifi_service = Inflight_wifi_service
         self.Departure_Arrival_time_convenient = Departure_Arrival_time_convenient
@@ -86,7 +86,7 @@ class CustomClass:
     def get_data_DataFrame(self):
         try:
             custom_input = {
-                "age": [self.age],
+                "Age": [self.Age],
                 "Flight_Distance": [self.Flight_Distance],
                 "Inflight_wifi_service":[self.Inflight_wifi_service],
                 "Departure_Arrival_time_convenient":[self.Departure_Arrival_time_convenient],

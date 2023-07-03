@@ -170,7 +170,7 @@ class DataTransformation():
             numerical_features = ['Age', 'Flight_Distance', 'Inflight_wifi_service',
        'Departure_Arrival_time_convenient', 'Ease_of_Online_booking',
        'Gate_location', 'Food_and_drink', 'Online_boarding', 'Seat_comfort',
-       'Inflight_entertainment', 'On-board_service', 'Leg_room_service',
+       'Inflight_entertainment', 'On_board_service', 'Leg_room_service',
        'Baggage_handling', 'Checkin_service', 'Inflight_service',
        'Cleanliness', 'Departure_Delay_in_Minutes',
        'Arrival_Delay_in_Minutes']

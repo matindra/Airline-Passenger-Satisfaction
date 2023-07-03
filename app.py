@@ -11,7 +11,7 @@ def prediction_data():
     
     else:
         data = CustomClass(
-            age = int(request.form.get("age")),
+            Age = int(request.form.get("Age")),
             Flight_Distance = int(request.form.get("Flight_Distance")),
             Inflight_wifi_service = int(request.form.get("Inflight_wifi_service")),
             Departure_Arrival_time_convenient = int(request.form.get("Departure_Arrival_time_convenient")),
