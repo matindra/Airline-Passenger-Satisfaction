@@ -13,6 +13,8 @@ from src.utils import load_object
 from src.config.configuration import *
 
 class PredictionPipeline:
+
+    logging.info("Initiating prediction pipeline")
     def __init__(self):
         pass
     
@@ -22,18 +24,20 @@ class PredictionPipeline:
         preprocessor_obj_file_path=PREPROCESSING_OBJ_PATH
         model_path = MODEL_FILE_PATH
 
-        processor = load_object(preprocessor_obj_file_path)
-        model = load_object(model_path)
+        processor = load_object(file_path=preprocessor_obj_file_path)
+        model = load_object(file_path=model_path)
 
 
-        scaled = processor.transform(features)
-        pred = model.predict(scaled)
+        scaled_data = processor.transform(features)
+        pred = model.predict(scaled_data)
 
         return pred
 
 
 
 class CustomClass:
+
+    logging.info("initiating custom class")
     def __init__(self, 
                   Age:int,
                   Flight_Distance:int, 
@@ -52,11 +56,11 @@ class CustomClass:
                   Inflight_service:int,
                   Cleanliness:int,
                   Departure_Delay_in_Minutes:int,
-                  Gender:int,
+                  Arrival_Delay_in_Minutes:int,
+                  Gender:str,
                   Customer_Type:str,
                   Type_of_Travel:str,
-                  Class:str,
-                  Arrival_Delay_in_Minutes:str):
+                  Class:str):
         self.Age = Age
         self.Flight_Distance = Flight_Distance
         self.Inflight_wifi_service = Inflight_wifi_service
@@ -74,11 +78,12 @@ class CustomClass:
         self.Inflight_service = Inflight_service
         self.Cleanliness = Cleanliness
         self.Departure_Delay_in_Minutes = Departure_Delay_in_Minutes
+        self.Arrival_Delay_in_Minutes = Arrival_Delay_in_Minutes
         self.Gender = Gender
         self.Customer_Type = Customer_Type
         self.Type_of_Travel = Type_of_Travel
         self.Class = Class
-        self.Arrival_Delay_in_Minutes = Arrival_Delay_in_Minutes
+
 
         
         
@@ -103,17 +108,23 @@ class CustomClass:
                 "Inflight_service":[self.Inflight_service],
                 "Cleanliness":[self.Cleanliness],
                 "Departure_Delay_in_Minutes":[self.Departure_Delay_in_Minutes],
+                "Arrival_Delay_in_Minutes":[self.Arrival_Delay_in_Minutes],
                 "Gender":[self.Gender],
                 "Customer_Type":[self.Customer_Type],
                 "Type_of_Travel":[self.Type_of_Travel],
-                "Class":[self.Class],
-                "Arrival_Delay_in_Minutes":[self.Arrival_Delay_in_Minutes]
+                "Class":[self.Class]
+                
 
 
             }
 
+
+            logging.info("Converting custom_input as pandas dataframe")
             data = pd.DataFrame(custom_input)
 
+            
+            logging.info("Returning data")
             return data
         except Exception as e:
             raise CustomException(e, sys)
+

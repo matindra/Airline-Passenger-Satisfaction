@@ -1,13 +1,21 @@
 from flask import Flask, render_template, request, jsonify
 from src.pipeline.prediction_pipeline import PredictionPipeline, CustomClass
+from src.logger import logging
 
 app = Flask(__name__, template_folder='templates')
 
 
 @app.route("/",methods = ["GET", "POST"])
+
+
+
 def prediction_data():
+
+    logging.info("defining prediction data")
     if request.method == "GET":
         return render_template("home.html")
+    
+
     
     else:
         data = CustomClass(
@@ -42,11 +50,20 @@ def prediction_data():
 
     result = pred
 
+
+
+    # Add a default return statement in case none of the above conditions are met
+    # return jsonify({'prediction': result})
+
+    logging.info("returning prediction data")
     if result == 0:
         return render_template("results.html", final_result = "Survey Opinion of the customer is satisfied:{}".format(result) )
+    
+    
 
     elif result == 1:
-        return render_template("results.html", final_result = "Survey Opinion of the customer is dissatisfied or neutral:{}".format(result) )
+            return render_template("results.html", final_result = "Survey Opinion of the customer is dissatisfied or neutral:{}".format(result) )
     
 if __name__ == "__main__":
      app.run(host = "0.0.0.0", debug = True)
+

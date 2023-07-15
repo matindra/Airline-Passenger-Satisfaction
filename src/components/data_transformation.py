@@ -83,20 +83,22 @@ class DataTransformation():
             ordinal_columns = ['Class']
             label_encoder_column = ['satisfaction']
 
+
+
+
+
             onehot_pipeline= Pipeline(steps=[
                 ('imputer', SimpleImputer(strategy='most_frequent')),
-                ('oridnal_encoder', OrdinalEncoder()),
+                ('oridnal_encoder', OrdinalEncoder(handle_unknown='use_encoded_value', unknown_value=-1)),
                 ('scaler', StandardScaler(with_mean=False))
             ])
 
 
             ordinal_pipeline = Pipeline(steps=[
                 ('imputer', SimpleImputer(strategy='most_frequent')),
-                ('one_hot_encoder', OneHotEncoder()),
+                ('one_hot_encoder', OneHotEncoder(handle_unknown='ignore')),
                 ('scaler', StandardScaler(with_mean=False))
-            ]
-            )
-
+            ])
 
 
             preprocessor =ColumnTransformer([
