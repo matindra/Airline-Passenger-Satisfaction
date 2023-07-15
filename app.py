@@ -51,18 +51,14 @@ def prediction_data():
     result = pred
 
 
-
-    # Add a default return statement in case none of the above conditions are met
-    # return jsonify({'prediction': result})
-
     logging.info("returning prediction data")
-    if result == 0:
-        return render_template("results.html", final_result = "Survey Opinion of the customer is satisfied:{}".format(result) )
-    
-    
+    # if result == 0:
+    #     return render_template("results.html", final_result = "Survey Opinion of the customer is satisfied:{}".format(result) )
 
-    elif result == 1:
-            return render_template("results.html", final_result = "Survey Opinion of the customer is dissatisfied or neutral:{}".format(result))
+    # elif result == 1:
+    #         return render_template("results.html", final_result = "Survey Opinion of the customer is dissatisfied or neutral:{}".format(result))
+
+
     return render_template("results.html", final_result="Survey Opinion of the customer is: {}".format(result))
     
 if __name__ == "__main__":
