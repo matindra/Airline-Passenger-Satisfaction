@@ -74,4 +74,4 @@ It is necessary to predict which of the two levels of satisfaction with the airl
 
 ##### Flask Result UI
 
-![Result UI](https://github.com/matindra/Airline-Passenger-Satisfaction/blob/main/Prediction%20Image/Prediction%20Result.png)
+![Result UI](https://github.com/matindra/Airline-Passenger-Satisfaction/blob/main/Prediction%20Image/Prediction_Result.png)
