@@ -62,8 +62,8 @@ def prediction_data():
     
 
     elif result == 1:
-            return render_template("results.html", final_result = "Survey Opinion of the customer is dissatisfied or neutral:{}".format(result) )
+            return render_template("results.html", final_result = "Survey Opinion of the customer is dissatisfied or neutral:{}".format(result))
+    return render_template("results.html", final_result="Survey Opinion of the customer is: {}".format(result))
     
 if __name__ == "__main__":
      app.run(host = "0.0.0.0", debug = True)
-
