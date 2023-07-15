@@ -63,3 +63,15 @@ It is necessary to predict which of the two levels of satisfaction with the airl
 
 1. Satisfaction
 2. Neutral or dissatisfied
+
+
+##### Flask Prediction UI
+
+![Prediction UI](https://github.com/matindra/Airline-Passenger-Satisfaction/blob/main/Prediction%20Image/UI1.png)
+
+![Prediction UI](https://github.com/matindra/Airline-Passenger-Satisfaction/blob/main/Prediction%20Image/UI2.png)
+
+
+##### Flask Result UI
+
+![Result UI](https://github.com/matindra/Airline-Passenger-Satisfaction/blob/main/Prediction%20Image/Prediction%20Result.png)
