@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Batch Prediction</title>
+    <style>
+        body {
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2em;
+            background-color: #ffffcc;
+            border: 2px solid rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            max-width: 400px;
+            width: 100%;
+            margin: 20px auto;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 1em;
+        }
+
+        .custom-button {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 18px;
+            text-align: center;
+            text-decoration: none;
+            background-color: yellow;
+            color: black;
+            border: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+
+        .custom-button:hover {
+            background-color: #ffcc00;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; font-size: 2.5em; color: #f50505; margin-bottom: 1em;">Batch Prediction</h1>
+    <div class="container">
+        <div class="button-container">
+            <a href="/train" class="custom-button">Upload CSV</a>
+            <form action="/batch" method="POST" enctype="multipart/form-data">
+                <input type="file" id="csv_file" name="csv_file" accept=".csv" required>
+                <button type="submit" class="custom-button">Start Batch Prediction</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Airline Passenger Prediction Project</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+    
+        body {
+            background-color: #ffffcc;
+        }
+    
+        input[type=text],
+        select,
+        textarea {
+            width: 50%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+    
+        label {
+            padding: 12px 12px 12px 0;
+            display: inline-block;
+        }
+    
+        input[type=submit] {
+            background-color: #04AA6D;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+        }
+    
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+    
+        .container {
+            border-radius: 5px;
+            background-color: #ffffcc;
+            padding: 20px;
+        }
+    
+        .col-25 {
+            float: left;
+            width: 25%;
+            margin-top: 6px;
+        }
+    
+        .col-75 {
+            float: left;
+            width: 75%;
+            margin-top: 6px;
+        }
+    
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    
+        /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+        @media screen and (max-width: 600px) {
+            .col-25,
+            .col-75,
+            input[type=submit] {
+                width: 100%;
+                margin-top: 0;
+            }
+        }
+    
+        h1 {
+            padding: 15px;
+            margin: 25px;
+            /* other styling */
+            background-color: #33475b;
+            border-radius: 50px;
+            color: white;
+            font-family: Avenir;
+        }
+    </style>
+    
+    
+    </style>
+</head>
+
+<body>
+    <h1 style="text-align:center;">Airline Passenger Prediction Project</h1>
+    <div class="form">
+        <form action="{{url_for('prediction_data')}}" method="POST">
+            <label for="operation"></label>
+
+            <div class="container">
+                <form action="/action_page.php">
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="Gender">Gender</label>
+                        </div>
+                        <div class="col-75">
+                            <select id="Gender" name="Gender">
+                                <option value="0">Male</option>
+                                <option value="1">Female</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="class">Type of travel</label>
+                        </div>
+                        <div class="col-75">
+                            <select id="Type_of_travel" name="Type_of_travel">
+                                <option value="0">Eco Plus</option>
+                                <option value="1">Business</option>
+                                <option value="2">ECO</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Customer_Type -->
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="Customer_Type">Select your Customer Type</label>
+                        </div>
+                        <div class="col-75">
+                            <select id="Customer_Type" name="Customer_Type">
+                                <option value="0">Loyal Customer</option>
+                                <option value="1">DisLoyal Customer</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Type_of_class -->
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="Type_of_class">Select your Travel Type</label>
+                        </div>
+                        <div class="col-75">
+                            <select id="Type_of_class" name="Type_of_class">
+                                <option value="0">Business Travel</option>
+                                <option value="1">Personal Travel</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Age -->
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="Age">Age</label>
+                        </div>
+                        <div class="col-75">
+                            <input type="text" id="Age" name="Age" placeholder="Enter Your Age">
+                        </div>
+                    </div>
+                    <!-- Flight Distance -->
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="Flight_Distance">Flight Distance</label>
+                        </div>
+                        <div class="col-75">
+                            <input type="text" id="Flight_Distance" name="Flight_Distance" placeholder="Enter Your value">
+                        </div>
+                    </div>
+                    <!--Inflight_wifi_service -->
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="Inflight_wifi_service">Inflight wifi service</label>
+                        </div>
+                        <div class="col-75">
+                            <select id="Inflight_wifi_service" name="Inflight_wifi_service">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--Departure/Arrival time convenient -->
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="Departure_Arrival_time_convenient">Departure/Arrival time convenient </label>
+                        </div>
+                        <div class="col-75">
+                            <select id="Departure_Arrival_time_convenient" name="Departure_Arrival_time_convenient">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--Ease of Online booking-->
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="Ease_of_Online_booking">Ease of Online booking </label>
+                        </div>
+                        <div class="col-75">
+                            <select id="Ease_of_Online_booking" name="Ease_of_Online_booking">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!--Food and drink-->
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="Food_and_drink">Food and Drink </label>
+                        </div>
+                        <div class="col-75">
+                            <select id="Food_and_drink" name="Food_and_drink">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--Online boarding-->
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="Online_boarding">Online Boarding </label>
+                        </div>
+                        <div class="col-75">
+                            <select id="Online_boarding" name="Online_boarding">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Seat comfort-->
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="Seat_comfort">Seat Comfort </label>
+                        </div>
+                        <div class="col-75">
+                            <select id="Seat_comfort" name="Seat_comfort">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--Inflight entertainment-->
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="Inflight_entertainment">Inflight Entertainment </label>
+                        </div>
+                        <div class="col-75">
+                            <select id="Inflight_entertainment" name="Inflight_entertainment">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--On-board service-->
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="On_board_service">On-Board Service</label>
+                        </div>
+                        <div class="col-75">
+                            <select id="On_board_service" name="On_board_service">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--Leg room service-->
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="Leg_room_service">Leg Room Service</label>
+                        </div>
+                        <div class="col-75">
+                            <select id="Leg_room_service" name="Leg_room_service">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--Baggage handling-->
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="Baggage_handling">Baggage Handling</label>
+                        </div>
+                        <div class="col-75">
+                            <select id="Baggage_handling" name="Baggage_handling">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--Checkin service-->
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="Checkin_service">Check in Service</label>
+                        </div>
+                        <div class="col-75">
+                            <select id="Checkin_service" name="Checkin_service">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Inflight service-->
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="Inflight_service">Inflight Service</label>
+                        </div>
+                        <div class="col-75">
+                            <select id="Inflight_service" name="Inflight_service">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--Cleanliness-->
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="Cleanliness">Cleanliness</label>
+                        </div>
+                        <div class="col-75">
+                            <select id="Cleanliness" name="Cleanliness">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    </div>
+
+
+                    <div class="row" class="center">
+                        <input type="submit" value="Submit">
+                    </div>
+                </form>
+            </div>
+</body>
+
+</html>

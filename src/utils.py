@@ -5,6 +5,7 @@ import os,sys
 import yaml
 import numpy as np
 import dill
+import pickle
 
 
 
@@ -79,3 +80,14 @@ def load_numpy_array_data(file_path: str) -> np.array:
             return np.load(file_obj)
     except Exception as e:
         raise CustomException(e, sys) from e
+    
+# *************Helper Function for Batch Prediction*******************************************
+
+def load_model(file_path):
+    try:
+        with open(file_path,'rb') as file_obj:
+            return pickle.load(file_obj)
+        
+    except Exception as e:
+        logging.info("Exception occured while loading a model")
+        raise CustomException(e,sys)

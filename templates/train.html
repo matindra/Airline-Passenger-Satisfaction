@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Train</title>
+    <style>
+        body {
+            background-color: #ffffcc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #f50505;
+            margin-bottom: 1em;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            font-size: 18px;
+            text-align: center;
+            text-decoration: none;
+            background-color: #f50505;
+            color: #ffffff;
+            border-radius: 6px;
+            transition: background-color 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn:hover {
+            background-color: #d20404;
+        }
+
+        p {
+            margin-top: 1em;
+            color: #6f6f6f;
+        }
+    </style>
+</head>
+<body>
+    <h1>Train</h1>
+
+    <form action="/train" method="POST">
+        <input type="submit" class="btn" value="Train">
+    </form>
+
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+    {% if error %}
+        <p>Error: {{ error }}</p>
+    {% endif %}
+</body>
+</html>
